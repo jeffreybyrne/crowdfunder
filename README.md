@@ -1,2 +1,2 @@
 # crowdfunder
-# commit check (Mike)
+# commit check
