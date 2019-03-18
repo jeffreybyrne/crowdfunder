@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from crowdfunder.models import Project, RewardTier, Purchase
-from crowdfunder.forms import RewardTierForm
+from crowdfunder.forms import RewardTierForm, PurchaseForm
 
 
 def home_page(request):
@@ -25,8 +25,8 @@ def rewards(request, id):
     return HttpResponse(response)
 
 def edit_reward(request, id):
-    project = Project.objects.get(pk=id)
     reward = RewardTier.objects.get(pk=id)
+    project = reward.project
     if request.method == 'GET':
         form = RewardTierForm(instance=reward)
         context = {'reward': reward, 'form': form }
@@ -41,3 +41,20 @@ def edit_reward(request, id):
             context = {'form': form, 'reward': reward }
             response = render(request, 'edit_reward.html', context)
             return HttpResponse(response)
+
+def purchase_reward(request):
+    if request.method == "POST":
+        post_data = request.POST
+        form = PurchaseForm(post_data)
+        if form.is_valid():
+            form.user = request.user
+            new_purchase = form.save()
+            return HttpResponseRedirect('/home')
+            #This needs to be changed to a page that displays the users' purchases i.e. user home page
+        else:
+            pass
+    else:
+        form = PurchaseForm()
+        context = {"form": form}
+        response = render(request, 'purchase_reward.html', context)
+        return HttpResponse(response)

@@ -7,3 +7,8 @@ class RewardTierForm(ModelForm):
     class Meta:
         model = RewardTier
         fields = ['title', 'description', 'tier_value', 'total_rewards', 'project']
+
+class PurchaseForm(ModelForm):
+    class Meta:
+        model = Purchase
+        fields = ['backer', 'reward_tier']
