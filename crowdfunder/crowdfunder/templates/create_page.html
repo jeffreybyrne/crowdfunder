@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!DOCTYPE html>
-<html lang="" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
     <h2>Create Page</h2>
-  </body>
-</html>
+    <form action="{% url 'new_project_page' %}" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <button type="submit" name="button">Add Project</button>
+    </form>
 {% endblock %}
