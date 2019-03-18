@@ -27,5 +27,6 @@ urlpatterns = [
     path('purchase_reward/', views.purchase_reward, name = 'purchase_reward'),
     path('project/new', views.new_project, name='new_project_page'),
     path('login/', views.login_view, name='login'),
+    path('project/<int:id>/add_rewards', views.add_rewards, name='add_rewards')
 
 ]
