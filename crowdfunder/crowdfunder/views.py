@@ -77,9 +77,7 @@ def new_project(request):
             return HttpResponseRedirect('/project/{}'.format(new_project.id))
     else:
         form = ProjectForm()
-        context = {'form': form}
-        print(context)
-    return render(request, 'create_page.html', context)
+    return render(request, 'create_page.html', {'form': form})
 
 
 def login_view(request):
