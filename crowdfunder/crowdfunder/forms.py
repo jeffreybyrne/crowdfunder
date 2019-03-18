@@ -29,8 +29,6 @@ class ProjectForm(ModelForm):
         if cleaned_start_date < datetime.date(datetime.now()):
             self.add_error('start_date', 'The start date must be in the future')
 
-
-
 class LoginForm(Form):
     username = CharField(label="User Name", max_length=64)
     password = CharField(widget=PasswordInput())
