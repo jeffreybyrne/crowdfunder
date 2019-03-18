@@ -10,6 +10,9 @@ class Project(models.Model):
     funding_goal = models.IntegerField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
 
+    def __str__(self):
+        return self.title
+
 
 class RewardTier(models.Model):
     title = models.CharField(max_length=255)

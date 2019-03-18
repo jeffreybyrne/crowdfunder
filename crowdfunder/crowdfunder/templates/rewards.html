@@ -14,6 +14,11 @@
       <li>
         <h3>{{ reward.title }}</h3>
         <h4>{{ reward.description }}</h4>
+        {% if owner.id != user.id %}
+          <a href="#">Get this reward</a>
+        {% else %}
+          <a href="{% url 'edit_reward' id=reward.pk %}">Edit Reward</a>
+        {% endif %}
       </li>
       {% endfor %}
     </ol>

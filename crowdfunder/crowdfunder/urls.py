@@ -23,4 +23,5 @@ urlpatterns = [
     path('project/<int:id>', views.project_page, name = 'project_page'),
     path('reward/<int:id>', views.reward_page, name = 'reward_page'),
     path('project/<int:id>/rewards/', views.rewards, name = 'rewards'),
+    path('edit_reward/<int:id>', views.edit_reward, name = 'edit_reward'),
 ]

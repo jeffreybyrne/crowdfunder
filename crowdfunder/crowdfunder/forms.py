@@ -1,4 +1,4 @@
-from django.forms import CharField, TextField, PasswordInput, ModelForm
+from django.forms import CharField, PasswordInput, ModelForm
 # from django.db import models
 from django import forms
 from crowdfunder.models import Project, RewardTier, Purchase
