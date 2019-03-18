@@ -18,6 +18,9 @@ class RewardTier(models.Model):
     total_rewards = models.IntegerField(null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='reward_tiers')
 
+    def __str__(self):
+        return self.title
+
 
 class Purchase(models.Model):
     backer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='purchases')
