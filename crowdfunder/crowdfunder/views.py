@@ -6,16 +6,15 @@ from crowdfunder.models import Project, RewardTier, Purchase
 from crowdfunder.forms import RewardTierForm, PurchaseForm, ProjectForm, LoginForm
 
 
-
 def home_page(request):
     context = {'projects': Project.objects.all() }
     response = render(request, 'index.html', context)
     return HttpResponse(response)
 
-
 def project_page(request, id):
     project = Project.objects.get(pk=id)
-    context = {'project': project}
+    owner = project.owner
+    context = {'project': project, "owner":owner}
     response = render(request, 'project.html', context)
     return HttpResponse(response)
 
@@ -29,6 +28,22 @@ def rewards(request, id):
     context = {'rewards': rewards, 'owner': owner}
     response = render(request, 'rewards.html', context)
     return HttpResponse(response)
+
+def add_rewards(request, id):
+    project = Project.objects.get(pk=id)
+    if request.method =='POST':
+        form = RewardTierForm(request.POST)
+        if form.is_valid():
+            add_reward = form.instance
+            add_reward.user = request.user
+            form.save()
+            return HttpResponseRedirect('/project/{}/rewards/'.format(project.id))
+    else:
+        form = RewardTierForm()
+        context = {'form':form, 'project':project}
+        response = render(request,'add_rewards.html', context)
+        return HttpResponse(response)
+
 
 def edit_reward(request, id):
     reward = RewardTier.objects.get(pk=id)
@@ -66,7 +81,7 @@ def purchase_reward(request):
         return HttpResponse(response)
 
 
-# @login_required
+@login_required
 def new_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
