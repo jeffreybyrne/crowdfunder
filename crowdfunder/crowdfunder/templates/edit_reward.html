@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <form action="{% url 'edit_reward' id=reward.pk %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Edit Reward</button>
+    </form>
+
+  </body>
+</html>
+
+{% endblock %}

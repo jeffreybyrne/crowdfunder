@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <form action="{% url 'purchase_reward' %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Purchase</button>
+    </form>
+
+  </body>
+</html>
+
+{% endblock %}

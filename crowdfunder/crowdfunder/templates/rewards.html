@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h2>Rewards</h2>
+    <ol>
+      {% for reward in rewards %}
+      <li>
+        <h3>{{ reward.title }}</h3>
+        <h4>{{ reward.description }}</h4>
+        {% if owner.id != user.id %}
+          <a href="{% url 'purchase_reward' %}">Get Reward!</a>
+        {% else %}
+          <a href="{% url 'edit_reward' id=reward.pk %}">Edit Reward</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+
+
+  </body>
+</html>
+
+{% endblock %}
