@@ -10,6 +10,14 @@
   <body>
     <h2>Home</h2>
     <a href="{% url 'new_project_page' %}">New Project</a>
+    <h3>Projects</h3>
+    {% for project in projects %}
+    <section>
+      <h3><a href="{% url 'project_page' id=project.pk %}">{{ project.title }}</a></h3>
+      <p>{{ project.description }}</p>
+      <p>By {{ project.owner.username }}</p>
+    </section>
+    {% endfor %}
   </body>
 </html>
 
