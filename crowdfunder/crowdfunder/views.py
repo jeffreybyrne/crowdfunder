@@ -152,6 +152,9 @@ def logout_view(request):
 @login_required
 def profile_show(request, id):
     profile = User.objects.get(pk=id)
-    context = {'profile': profile}
+    total_backed = 0
+    for purchase in profile.purchases.all():
+        total_backed += purchase.reward_tier.tier_value
+    context = {'profile': profile, 'total': total_backed}
     response = render(request, 'profile_page.html', context)
     return HttpResponse(response)
