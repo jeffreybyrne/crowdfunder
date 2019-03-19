@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Projects by {{ owner }}</h2>
+  <ul>
+    {% for project in projects %}
+      <li><a href="{% url 'project_page' id=project.pk %}">{{ project.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

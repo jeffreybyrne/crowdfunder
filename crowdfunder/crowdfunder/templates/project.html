@@ -2,6 +2,7 @@
 {% block content %}
 <h1>Project Page</h1>
   <h2>{{ project.title }}</h2>
+  <h3>By <a href="{% url 'projects_by_owner' id=project.owner.pk %}">{{ project.owner.username }}</a></h3>
   {% if already_backed %}
     <p>You have backed this already!</p>
   {% endif %}

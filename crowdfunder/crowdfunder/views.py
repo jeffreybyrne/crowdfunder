@@ -162,3 +162,12 @@ def profile_show(request, id):
     context = {'profile': profile, 'total': total_backed, 'backed_projects': backed_projects}
     response = render(request, 'profile_page.html', context)
     return HttpResponse(response)
+
+
+def projects_by_owner(request, id):
+    owner = User.objects.get(pk=id)
+    projects = owner.projects.all()
+    print(projects)
+    context = {'owner': owner, 'projects': projects}
+    response = render(request, 'projects_by_owner.html', context)
+    return HttpResponse(response)
