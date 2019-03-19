@@ -8,8 +8,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Profile Page</h1>
-     <li>This is the profile page of: {{ request.user.username }}</li>
-     <h2>Total Spent: {{ total }}</h2>
+     <p>This is the profile page of: <strong>{{ request.user.username }}</strong></p>
+     <h2>Projects Funded</h2>
+  <ul>
+    {% for project in backed_projects %}
+    <li>{{project}}</li>
+    {%endfor%}
+  </ul>
+  <h2>Total Spent: {{ total }}</h2>
 {% endblock %}
   </body>
 </html>
