@@ -137,6 +137,8 @@ def logout_view(request):
 @login_required
 def profile_show(request, id):
     profile = User.objects.get(pk=id)
-    context = {'profile': profile}
+    purchase = Purchase.objects.get(pk=id) 
+    projects_funded = Purchase.objects.filter(backer=purchase.backer)
+    context = {'profile': profile, 'projects_funded': projects_funded}
     response = render(request, 'profile_page.html', context)
     return HttpResponse(response)
