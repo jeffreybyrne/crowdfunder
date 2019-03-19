@@ -13,9 +13,10 @@
         <li>Logged in as {{ request.user.username }}</li>
         {% else %}
         <!-- display link to login page -->
-        <a class="login" href="{% url 'login' %}">Log in</a>
+        <a  href="{% url 'login' %}">Log in</a>
         {% endif %}
-        <a class="signup" href="{% url 'signup' %}">Signup</a>
+        <a href="{% url 'signup' %}">Signup</a>
+        <a href="{% url 'profile' %}">Profile Page</a>
        
     {% block content %}
         

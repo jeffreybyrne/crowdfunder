@@ -137,3 +137,7 @@ def signup(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/home')
+
+@login_required
+def profile_page(request):
+    pass
