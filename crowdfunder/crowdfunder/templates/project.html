@@ -11,4 +11,7 @@
   {% if owner.id == user.id %}
     <a href="{% url 'add_rewards' id=project.id%}" >Create Reward</a>
   {% endif %}
+    {% if already_backed %}
+      <p>You have backed this already!</p>
+    {% endif %}
 {% endblock %}

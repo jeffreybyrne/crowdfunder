@@ -16,7 +16,13 @@ def home_page(request):
 def project_page(request, id):
     project = Project.objects.get(pk=id)
     owner = project.owner
-    context = {'project': project, "owner":owner}
+    reward_list = project.reward_tiers.all()
+    already_backed = False
+    for reward in reward_list:
+        for purchase in reward.purchases.all():
+            if request.user == purchase.backer:
+                already_backed = True
+    context = {'project': project, "owner":owner, "already_backed":already_backed}
     response = render(request, 'project.html', context)
     return HttpResponse(response)
 
