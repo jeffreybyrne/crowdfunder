@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from crowdfunder.models import Project, RewardTier, Purchase
 from crowdfunder.forms import RewardTierForm, PurchaseForm, ProjectForm, LoginForm
 
@@ -139,5 +140,8 @@ def logout_view(request):
     return HttpResponseRedirect('/home')
 
 @login_required
-def profile_page(request):
-    pass
+def profile_show(request, id):
+    profile = User.objects.get(pk=id)
+    context = {'profile': profile}
+    response = render(request, 'profile_page.html', context)
+    return HttpResponse(response)

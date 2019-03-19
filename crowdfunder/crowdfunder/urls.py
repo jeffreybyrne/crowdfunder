@@ -30,7 +30,7 @@ urlpatterns = [
     path('project/<int:id>/add_rewards', views.add_rewards, name='add_rewards'),
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout_view, name='logout'),
-    path('profile/', views.profile_page, name='profile'),
+    path('profile/<int:id>', views.profile_show, name='profile_show'),
 
 
 ]
