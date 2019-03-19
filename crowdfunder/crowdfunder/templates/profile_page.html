@@ -8,7 +8,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Profile Page</h1>
-     <p>This is the profile page of: <strong>{{ request.user.username }}</strong></p>
+     <p>This is the profile page of: <strong>{{ profile.username }}</strong></p>
      <h2>Projects Funded</h2>
   <ul>
     {% for project in backed_projects %}
@@ -16,6 +16,12 @@
     {%endfor%}
   </ul>
   <h2>Total Spent: {{ total }}</h2>
+  <h2>Projects owned by {{ profile.username }}</h2>
+  <ul>
+  {% for project in profile.projects.all %}
+    <li><a href="{% url 'project_page' id=project.pk %}">{{ project.title }}</a></li>
+  {% endfor %}
+  </ul>
 {% endblock %}
   </body>
 </html>
