@@ -14,6 +14,11 @@ class PurchaseForm(ModelForm):
         model = Purchase
         fields = ['backer', 'reward_tier']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data['backer'] == cleaned_data['reward_tier'].project.owner:
+            self.add_error('backer', 'You cannot back your own project')
+
 class ProjectForm(ModelForm):
     class Meta:
         model = Project

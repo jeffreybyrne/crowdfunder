@@ -6,7 +6,7 @@
   <p>Start Date: {{project.start_date}}</p>
   <p>End Date: {{project.end_date}}</p>
   <p>Goal: ${{project.funding_goal}}</p>
-  <p>Insert total funded to date here</p>
+  <p>Total funded: ${{project.total_pledged}}</p>
   <a href="{% url 'rewards' id=project.id%}">See rewards</a>
   {% if owner.id == user.id %}
     <a href="{% url 'add_rewards' id=project.id%}" >Create Reward</a>

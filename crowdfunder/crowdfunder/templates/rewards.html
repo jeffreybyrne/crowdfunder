@@ -15,7 +15,12 @@
         <h3>{{ reward.title }}</h3>
         <h4>{{ reward.description }}</h4>
         {% if owner.id != user.id %}
-          <a href="{% url 'purchase_reward' %}">Get Reward!</a>
+          <form action="{% url 'purchase_reward' id=reward.pk %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="backer" value="{{request.user.pk}}">
+            <input type="hidden" name="reward_tier" value="{{reward.pk}}">
+            <button type="submit">Get Reward!</button>
+          </form>
         {% else %}
           <a href="{% url 'edit_reward' id=reward.pk %}">Edit Reward</a>
         {% endif %}

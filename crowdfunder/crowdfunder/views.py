@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from crowdfunder.models import Project, RewardTier, Purchase
 from crowdfunder.forms import RewardTierForm, PurchaseForm, ProjectForm, LoginForm
-
+import ipdb
 
 def home_page(request):
     context = {'projects': Project.objects.all() }
@@ -65,22 +65,17 @@ def edit_reward(request, id):
             response = render(request, 'edit_reward.html', context)
             return HttpResponse(response)
 
-def purchase_reward(request):
-    if request.method == "POST":
-        post_data = request.POST
-        form = PurchaseForm(post_data)
-        if form.is_valid():
-            form.user = request.user
-            new_purchase = form.save()
-            return HttpResponseRedirect('/home')
-            #This needs to be changed to a page that displays the users' purchases i.e. user home page
-        else:
-            pass
-    else:
-        form = PurchaseForm()
-        context = {"form": form}
-        response = render(request, 'purchase_reward.html', context)
-        return HttpResponse(response)
+def purchase_reward(request, id):
+    reward = RewardTier.objects.get(pk =id)
+    project = reward.project
+    # form_dict = {'backer':request.user, 'reward_tier':reward}
+    # purchase = Purchase.objects.create(backer=request.user, reward_tier=reward)
+    form = PurchaseForm(request.POST)
+    # ipdb.set_trace()
+    if form.is_valid():
+        new_purchase = form.save()
+        return HttpResponseRedirect('/project/{}'.format(project.id))
+
 
 
 @login_required
