@@ -14,6 +14,12 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    def total_pledged(self):
+        total_purchased = 0
+        for tier in self.reward_tiers.all():
+            total_purchased += (tier.tier_value * len(tier.purchases.all()))
+        return total_purchased
+
 
 class RewardTier(models.Model):
     title = models.CharField(max_length=255)
