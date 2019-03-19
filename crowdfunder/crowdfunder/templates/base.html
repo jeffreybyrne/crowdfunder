@@ -7,7 +7,18 @@
 
   <body>
     <h1>Crowdfunder</h1>
+      {% if request.user.is_authenticated %}
+        <!-- display link to log out -->
+        <a class="login" href="{% url 'logout' %}">Log out</a>
+        <li>Logged in as {{ request.user.username }}</li>
+        {% else %}
+        <!-- display link to login page -->
+        <a class="login" href="{% url 'login' %}">Log in</a>
+        {% endif %}
+        <a class="signup" href="{% url 'signup' %}">Signup</a>
+       
     {% block content %}
+        
     {% endblock %}
   </body>
 </html>

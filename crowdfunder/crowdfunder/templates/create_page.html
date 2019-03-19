@@ -4,7 +4,7 @@
     <h2>Create Page</h2>
     <form action="{% url 'new_project_page' %}" method="post">
       {% csrf_token %}
-      {{ form }}
+      {{ form.as_p }}
       <button type="submit" name="button">Add Project</button>
     </form>
 {% endblock %}
