@@ -11,10 +11,12 @@
      <p>This is the profile page of: <strong>{{ request.user.username }}</strong></p>
      <h2>Projects funded</h2> 
   
-    {% for project in projects_funded%}
+    {% for project in backed_projects %}
     <li>{{project}}</li>
     {%endfor%}
- 
+  </ul>
+
+  
 {% endblock %}
   </body>
 </html>

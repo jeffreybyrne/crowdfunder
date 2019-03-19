@@ -134,11 +134,17 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/home')
 
-@login_required
+
 def profile_show(request, id):
     profile = User.objects.get(pk=id)
-    purchase = Purchase.objects.get(pk=id) 
-    projects_funded = Purchase.objects.filter(backer=purchase.backer)
-    context = {'profile': profile, 'projects_funded': projects_funded}
+    purchases = profile.purchases.all()
+    backed_projects = []
+    for purchase in purchases:
+        if purchase.reward_tier.project not in backed_projects:
+            backed_projects.append(purchase.reward_tier.project)
+
+    context = {'profile': profile, 'backed_projects': backed_projects}
     response = render(request, 'profile_page.html', context)
     return HttpResponse(response)
+
+
