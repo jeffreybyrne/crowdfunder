@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from crowdfunder.models import Project, RewardTier, Purchase
 from crowdfunder.forms import RewardTierForm, PurchaseForm, ProjectForm, LoginForm
 import ipdb
+import datetime
 
 def home_page(request):
     context = {'projects': Project.objects.all() }
@@ -22,7 +23,15 @@ def project_page(request, id):
         for purchase in reward.purchases.all():
             if request.user == purchase.backer:
                 already_backed = True
-    context = {'project': project, "owner":owner, "already_backed":already_backed}
+    # Determine deadline
+    today = datetime.date.today()
+    d0 = today
+    d1 = project.end_date
+    delta = d1 - d0
+    days_left = delta.days
+    # Determine funds received
+    funds_met = project.total_pledged() - project.funding_goal
+    context = {'project': project, "owner":owner, 'today': today, 'days_left': days_left, 'funds_met': funds_met, 'already_backed': already_backed}
     response = render(request, 'project.html', context)
     return HttpResponse(response)
 

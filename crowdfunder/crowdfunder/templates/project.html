@@ -2,6 +2,9 @@
 {% block content %}
 <h1>Project Page</h1>
   <h2>{{ project.title }}</h2>
+  {% if already_backed %}
+    <p>You have backed this already!</p>
+  {% endif %}
   <p>{{ project.description}}</p>
   <p>Start Date: {{project.start_date}}</p>
   <p>End Date: {{project.end_date}}</p>
@@ -11,7 +14,20 @@
   {% if owner.id == user.id %}
     <a href="{% url 'add_rewards' id=project.id%}" >Create Reward</a>
   {% endif %}
-    {% if already_backed %}
-      <p>You have backed this already!</p>
+
+
+  <!-- Show how many days left -->
+  {% if days_left > 0 %}
+    <p>There are {{ days_left }} days left to back this project.</p>
+  {% elif days_left == 0 %}
+    <p>Today is the last day to back this project.</p>
+  {% elif days_left < 0 %}
+    <p>The deadline has passed. This project is no longer accepting funds.</p>
+    <!-- Check if funding goal was met -->
+    {% if funds_met >= 0 %}
+      <p>Project has reached funding goal.</p>
+    {% elif funds_met < 0 %}
+      <p>Project did not meet funding goal.</p>
     {% endif %}
+  {% endif %}
 {% endblock %}
